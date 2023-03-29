@@ -21,7 +21,6 @@ type TimeScaleDb struct {
 
 type Kafka struct {
 	Brokers   []string `yaml:"Brokers"`
-	Topic     string   `yaml:"Topic"`
 	Partition int      `yaml:"Partition"`
 	GroupID   string   `yaml:"GroupID"`
 	ReadFrom  string   `yaml:"ReadFrom"`
