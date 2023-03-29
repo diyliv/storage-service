@@ -13,6 +13,6 @@ func NewKafkaConn(cfg *config.Config) (*kafka.Conn, error) {
 		context.Background(),
 		"tcp",
 		cfg.Kafka.Brokers[0],
-		cfg.Kafka.Topic,
+		cfg.Kafka.ReadFrom,
 		cfg.Kafka.Partition)
 }
