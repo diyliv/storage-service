@@ -4,6 +4,7 @@ import "github.com/spf13/viper"
 
 type Config struct {
 	TimeScaleDb TimeScaleDb `yaml:"TimeScaleDb"`
+	Kafka       Kafka       `yaml:"Kafka"`
 }
 
 type TimeScaleDb struct {
@@ -16,6 +17,14 @@ type TimeScaleDb struct {
 	MaxOpenConn     int    `yaml:"MaxOpenConn"`
 	MaxIdleConn     int    `yaml:"MaxIdleConn"`
 	SSLMode         string `yaml:"SSLMode"`
+}
+
+type Kafka struct {
+	Brokers   []string `yaml:"Brokers"`
+	Topic     string   `yaml:"Topic"`
+	Partition int      `yaml:"Partition"`
+	GroupID   string   `yaml:"GroupID"`
+	ReadFrom  string   `yaml:"ReadFrom"`
 }
 
 func ReadConfig(cfgName, cfgType, cfgPath string) *Config {
