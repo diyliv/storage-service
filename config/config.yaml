@@ -1,0 +1,10 @@
+TimeScaleDb:
+ Host: 172.24.0.2
+ Port: 5432
+ Login: postgres
+ Password: postgres
+ DB: postgres 
+ ConnMaxLifeTime: 3
+ MaxOpenConn: 10
+ MaxIdleConn: 10
+ SSLMode: disable
