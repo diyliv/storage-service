@@ -49,12 +49,20 @@ func (c *consumer) Consume(ctx context.Context) error {
 		msg, err := c.reader.ReadMessage(ctx)
 		if err != nil {
 			c.logger.Error("Error while reading messages: " + err.Error())
-			return err
 		}
 
 		if err := json.Unmarshal(msg.Value, &resp); err != nil {
 			c.logger.Error("Error while unmarshalling: " + err.Error())
-			return err
+		}
+
+		if err := c.timescaledb.Insert(ctx, models.Response{
+			AssetId:    resp.AssetId,
+			TagType:    resp.TagType,
+			TagValue:   resp.TagValue,
+			TagQuality: resp.TagQuality,
+			ReadAt:     resp.ReadAt,
+		}); err != nil {
+			c.logger.Error("Error while inserting data into db: " + err.Error())
 		}
 	}
 }
