@@ -7,7 +7,6 @@ import (
 	"github.com/diyliv/store/internal/consumer"
 	"github.com/diyliv/store/internal/handler"
 	"github.com/diyliv/store/internal/repository"
-	"github.com/diyliv/store/pkg/kafka"
 	"github.com/diyliv/store/pkg/logger"
 	"github.com/diyliv/store/pkg/storage/timescaledb"
 )
@@ -20,17 +19,10 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	kafkaConn, err := kafka.NewKafkaConn(cfg)
-	if err != nil {
-		panic(err)
-	}
 	repo := repository.NewRepository(logger, tsConn)
 	kafkaConsumer := consumer.NewConsumer(cfg, logger, repo)
 	defer func() {
 		if err := tsConn.Close(ctx); err != nil {
-			panic(err)
-		}
-		if err := kafkaConn.Close(); err != nil {
 			panic(err)
 		}
 	}()
